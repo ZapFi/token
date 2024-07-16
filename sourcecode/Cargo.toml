@@ -1,0 +1,34 @@
+[package]
+name = "psp22"
+version = "2.9.6"
+authors = ["ZapFi Team <zapfi.org>"]
+edition = "2021"
+overflow-checks = false
+
+[dependencies]
+ink = { version = "4.2.1", default-features = false }
+scale = { package = "parity-scale-codec", version = "3", default-features = false, features = ["derive"] }
+scale-info = { version = "2.3", default-features = false, features = ["derive"], optional = true }
+
+openbrush = { git = "https://github.com/727-Ventures/openbrush-contracts", tag = "3.1.1", default-features = false, features = ["psp22", "ownable"]}
+
+[lib]
+name = "psp22"
+path = "lib.rs"
+crate-type = [
+    # Used for normal contract Wasm blobs.
+    "cdylib",
+    "rlib",
+]
+
+[features]
+default = ["std"]
+std = [
+    "ink/std",
+    "scale/std",
+    "scale-info/std",
+    "openbrush/std",
+]
+
+psp22 = ["openbrush/psp22"]
+ink-as-dependency = []
